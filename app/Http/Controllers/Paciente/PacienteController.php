@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Http\Controllers\Paciente;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Paciente\Paciente;
+use Carbon\Carbon;
+
+class PacienteController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $paciente=Paciente::all();
+
+
+        return view('Paciente.index')->with('paciente',$paciente);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('Paciente.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        $input=$request->all();
+        $input['Fecha_Ingreso']=Carbon::now()->format('d/m/Y');
+        $input['alta']=0;
+
+        Paciente::create($input);
+        $paciente=Paciente::all();
+
+
+        return view('Paciente.index')->with('paciente',$paciente);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+          $paciente=Paciente::find($id);
+        return view('Paciente.edit')->with('paciente',$paciente);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        
+
+        $pa=Paciente::find($id);
+        $input=$request->all();
+
+        $pa->fill($input)->save();
+
+        $paciente=Paciente::all();
+
+
+        return view('Paciente.index')->with('paciente',$paciente);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}
