@@ -9,19 +9,18 @@
     <link href="{{ asset('css/micss.css') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
     <!-- Jquery -->
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Datepicker Files -->
     <link rel="stylesheet" href="{{asset('datePicker/css/bootstrap-datepicker3.css')}}">
     <link rel="stylesheet" href="{{asset('datePicker/css/bootstrap-standalone.css')}}">
     <script src="{{asset('datePicker/js/bootstrap-datepicker.js')}}"></script>
     <!-- Languaje -->
     <script src="{{asset('datePicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
+    <link rel="stylesheet"  href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
   </head>
   <body>
     <div class="panel panel-default margen" id="1">
@@ -35,21 +34,201 @@
                <th>Rut</th>
                <th>Nombre</th>
                <th>Telefono</th>
+               <th>Direccion</th>
+               <th>Cobertura Medica</th>
                <th>Accion</th>
+
             </thead>
               @foreach ($paciente as $pa)
                 <tr>
                  <td>{{$pa->rut}}</td>
                  <td>{{$pa->Nombre}} {{$pa->Paterno}} {{$pa->Materno}}</td>
                  <td>{{$pa->Telefono_Casa}}</td>
+                 <td>{{$pa->Calle}} {{$pa->Numero_Calle}}</td>
+                 <td>{{$pa->Cobertura_Medica}}</td>
                  <td>
-                   <a href={{route('Paciente.edit',$pa->rut)}} class="btn btn-info" role="button">Editar</a>
+                   <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#{{$pa->rut}}">Editar</button>
+
+                   <div id="{{$pa->rut}}" class="modal fade" role="dialog">
+                     <div class="modal-dialog">
+                       <div class="container" style="max-width:180%; margin-left:-40%; margin-top:10%;">
+
+                          {!!Form::model($pa,['route'=>['Paciente.update',$pa->rut],'method'=>'PUT','class'=>'well form-horizontal','id'=>'contact_form'])!!}
+                         <fieldset>
+
+                           <legend>Actualizar Paciente
+                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                           </legend>
+
+                         <div class="col-sm-12 ">
+                           <div class="col-sm-6">
+                             <div class="form-group">
+                               <label class="col-md-4">Nombre</label>
+                               <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                               <input  name="Nombre" value="{{$pa->Nombre}}" class="form-control"  type="text">
+                                 </div>
+                               </div>
+                             </div>
+
+                             <!-- Text input-->
+
+                             <div class="form-group">
+                               <label class="col-md-4">Apellido Paterno</label>
+                                 <div class="col-md-6 inputGroupContainer">
+                                 <div class="input-group">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                               <input name="Paterno" value="{{$pa->Paterno}}" class="form-control"  type="text">
+                                 </div>
+                               </div>
+                             </div>
+
+                             <div class="form-group">
+                               <label class="col-md-4">Apellido Materno</label>
+                                 <div class="col-md-6 inputGroupContainer">
+                                 <div class="input-group">
+                               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                               <input name="Materno" value="{{$pa->Materno}}" class="form-control"  type="text">
+                                 </div>
+                               </div>
+                             </div>
+
+                             <div class="form-group">
+                               <label class="col-md-4">Genero</label>
+                                <div class="col-md-6 inputGroupContainer">
+                                 <div class="input-group">
+                                     <span class="input-group-addon"><i class="glyphicon glyphicon-menu-right"></i></span>
+                               <input name="Genero" value="{{$pa->Genero}}" class="form-control" type="text">
+                                 </div>
+                               </div>
+                             </div>
+
+
+                             <div class="form-group">
+                               <label class="col-md-4">Fecha Nacimiento</label>
+                                <div class="col-md-6 inputGroupContainer">
+                                  <div class="input-group">
+                                       <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                      <input type="text" class="form-control datepicker" name="Fecha_Nacimiento" value="{{$pa->Fecha_Nacimiento}}">
+                                  </div>
+                               </div>
+                             </div>
+
+                             <!-- Text input-->
+                             <div class="form-group">
+                               <label class="col-md-4">E-Mail</label>
+                                 <div class="col-md-6 inputGroupContainer">
+                                 <div class="input-group">
+                                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                               <input name="email" placeholder="E-Mail Address" class="form-control"  type="text" placeholder="">
+                                 </div>
+                               </div>
+                             </div>
+
+                           </div>
+
+                         <div class="col-sm-6">
+
+                           <!-- Text input-->
+
+                           <div class="form-group">
+                             <label class="col-md-4">Telefono Fijo</label>
+                               <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                   <input name="Telefono_Casa" value="{{$pa->Telefono_Casa}}" class="form-control" type="text">
+                               </div>
+                             </div>
+                           </div>
+
+                           <div class="form-group">
+                             <label class="col-md-4">Telefono Movil</label>
+                               <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                   <input name="Telefono_Movil" value="{{$pa->Telefono_Movil}}" class="form-control" type="text">
+                               </div>
+                             </div>
+                           </div>
+
+                           <!-- Text input-->
+
+                           <div class="form-group">
+                             <label class="col-md-4">Calle</label>
+                               <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                             <input name="Calle" value="{{$pa->Calle}}" class="form-control" type="text">
+                               </div>
+                             </div>
+                           </div>
+
+                           <!-- Text input-->
+
+                           <div class="form-group">
+                             <label class="col-md-4">Numero Calle</label>
+                               <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                             <input name="Numero_Calle" value="{{$pa->Numero_Calle}}" class="form-control"  type="text">
+                               </div>
+                             </div>
+                           </div>
+
+
+
+                           <!-- Text input-->
+                           <div class="form-group">
+                             <label class="col-md-4">Region</label>
+                              <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                             <input name="Region" value="{{$pa->Region}}" class="form-control" type="text">
+                               </div>
+                             </div>
+                           </div>
+
+                           <div class="form-group">
+                             <label class="col-md-4">Comuna</label>
+                              <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                             <input name="Comuna" value="{{$pa->Comuna}}" class="form-control" type="text">
+                               </div>
+                             </div>
+                           </div>
+
+                           <div class="form-group">
+                             <label class="col-md-4">Cobertura Medica</label>
+                              <div class="col-md-6 inputGroupContainer">
+                               <div class="input-group">
+                                   <span class="input-group-addon"><i class="glyphicon glyphicon-plus"></i></span>
+                             <input name="Cobertura_Medica" value="{{$pa->Cobertura_Medica}}" class="form-control" type="text">
+                               </div>
+                             </div>
+                           </div>
+
+                         </div>
+
+                         </div>
+                         <div class="form-group col-md-6" style="margin-left: 10px;">
+                           {!!form::submit('Actualizar',['name'=>'grabar','id'=>'grabar','class'=>'btn btn-success '])!!}
+                           {!!Form::close()!!}
+                         </div>
+                         </fieldset>
+                       </div>
+                     </div>
+                   </div>
                  </td>
                 </tr>
               @endforeach
           </table>
         </div>
       </div>
+
+
 
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -60,7 +239,11 @@
             <fieldset>
 
             <!-- Form Name -->
-            <legend>Ingresar Paciente</legend>
+            <legend>Ingresar Paciente
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </legend>
+
 
             <!-- Text input-->
 
@@ -231,26 +414,35 @@
               {!!form::submit('Ingresar',['name'=>'grabar','id'=>'grabar','class'=>'btn btn-success '])!!}
               {!!Form::close()!!}
             </div>
-
-
             </fieldset>
-
-
-
           </div>
-          <script>
-              $('.datepicker').datepicker({
-                  format: "dd/mm/yyyy",
-                  language: "es",
-                  startDate: '-1w',
-                  endDate:   '0d',
-                  autoclose: true
-              });
-          </script>
-
         </div>
       </div>
 
+
+
+      <script src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+      <script>
+          $('.datepicker').datepicker({
+              format: "dd/mm/yyyy",
+              language: "es",
+              startDate: '-100y',
+              endDate:   '0d',
+              autoclose: true
+          });
+
+
+          $(document).ready(function() {
+              $('#myTable1').DataTable( {
+                  "language": {
+                      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                  }
+              } );
+          } );
+      </script>
+
+
   </body>
+
 </html>
 @endsection

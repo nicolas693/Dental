@@ -84,17 +84,13 @@ class PacienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
 
         $pa=Paciente::find($id);
         $input=$request->all();
-
         $pa->fill($input)->save();
-
         $paciente=Paciente::all();
-
-
-        return view('Paciente.index')->with('paciente',$paciente);
+        return redirect('/Paciente')->with('paciente',$paciente);
 
     }
 
