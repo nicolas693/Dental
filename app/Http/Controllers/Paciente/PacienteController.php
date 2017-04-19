@@ -90,7 +90,7 @@ class PacienteController extends Controller
         $input=$request->all();
         $pa->fill($input)->save();
         $paciente=Paciente::all();
-        return redirect('/Paciente')->with('paciente',$paciente);
+          return redirect()->route('Paciente.index');
 
     }
 
@@ -102,6 +102,23 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->route('Paciente.index');
+    }
+
+    public function alta($id)
+    {
+      
+        $pa=Paciente::find($id);
+        if($pa->alta==false){
+            Paciente::where('rut', $id)->update(array('alta' => 1));
+        }
+
+        else {
+            Paciente::where('rut', $id)->update(array('alta' => 0));
+        }
+        $pa=Paciente::find($id);
+        $pa=$pa->clinica_id;
+
+        return redirect()->route('Paciente.index');
     }
 }

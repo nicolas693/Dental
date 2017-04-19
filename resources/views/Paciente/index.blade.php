@@ -22,8 +22,16 @@
     <script src="{{asset('datePicker/locales/bootstrap-datepicker.es.min.js')}}"></script>
     <link rel="stylesheet"  href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
   </head>
+
+  <ol class="breadcrumb margenOl ">
+       <li class="pull-left"><button id="paciente1" class="btn btn-primary btn-xs"> <b>Pacientes Con Alta</b></button></li>
+       <li class="pull-left"><button id="paciente2" class="btn btn-primary btn-xs"> <b>Pacientes En Tratamiento</b></button></li>
+       <li class="pull-right"><a href="/" class="btn btn-primary btn-xs"> <b>Volver</b></a></li>
+       <li class="active">  </li>
+     </ol>
   <body>
-    <div class="panel panel-default margen" id="1">
+    <div class="panel panel-success margen" id="1">
+
       <div class="panel-heading" >
         <b>Pacientes</b>
         <button type="button" class="btn btn-success btn-xs pull-right" data-toggle="modal" data-target="#myModal">Ingresar</button>
@@ -40,6 +48,7 @@
 
             </thead>
               @foreach ($paciente as $pa)
+                @if($pa->alta==false)
                 <tr>
                  <td>{{$pa->rut}}</td>
                  <td>{{$pa->Nombre}} {{$pa->Paterno}} {{$pa->Materno}}</td>
@@ -48,6 +57,8 @@
                  <td>{{$pa->Cobertura_Medica}}</td>
                  <td>
                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#{{$pa->rut}}">Editar</button>
+                   <!--<a class="btn btn-success btn-xs"  href="{{route('Paciente.edit',$pa->rut)}}">Editar</a>-->
+                   <a class="btn btn-danger btn-xs"  href="{{url('/Paciente/alta/'.$pa->rut)}}">Dar Alta</a>
 
                    <div id="{{$pa->rut}}" class="modal fade" role="dialog">
                      <div class="modal-dialog">
@@ -223,10 +234,49 @@
                    </div>
                  </td>
                 </tr>
+                @endif
               @endforeach
           </table>
         </div>
       </div>
+
+      <div class="panel panel-warning margen" id="2" style="display:none;">
+
+        <div class="panel-heading" >
+          <b>Pacientes Con Alta</b>
+          <button type="button" class="btn btn-success btn-xs pull-right" data-toggle="modal" data-target="#myModal">Ingresar</button>
+        </div>
+          <div class="panel-body">
+            <table class="table stripe compact " id="myTable2"  >
+              <thead>
+                 <th>Rut</th>
+                 <th>Nombre</th>
+                 <th>Telefono</th>
+                 <th>Direccion</th>
+                 <th>Cobertura Medica</th>
+                 <th>Accion</th>
+
+              </thead>
+                @foreach ($paciente as $pa)
+                  @if($pa->alta==true)
+                  <tr>
+                   <td>{{$pa->rut}}</td>
+                   <td>{{$pa->Nombre}} {{$pa->Paterno}} {{$pa->Materno}}</td>
+                   <td>{{$pa->Telefono_Casa}}</td>
+                   <td>{{$pa->Calle}} {{$pa->Numero_Calle}}</td>
+                   <td>{{$pa->Cobertura_Medica}}</td>
+                   <td>
+
+                     <a class="btn btn-success btn-xs"  href="{{url('/Paciente/alta/'.$pa->rut)}}">Ingresar Nuevamente</a>
+
+
+                   </td>
+                  </tr>
+                  @endif
+                @endforeach
+            </table>
+          </div>
+        </div>
 
 
 
@@ -419,6 +469,27 @@
         </div>
       </div>
 
+      <div class="modal fade" id="modal-delete" tabIndex="-1">
+
+     <form id="form" action="" method="post">
+       <div class="form-group">
+         <input type="hidden" name="_method" value="put" />
+         <label class="col-md-4">Telefono Fijo</label>
+           <div class="col-md-6 inputGroupContainer">
+           <div class="input-group">
+               <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+               <input id="tele" name="Telefono_Casa" value="" class="form-control" type="text">
+           </div>
+         </div>
+       </div>
+
+       <button type="submit">Save</button>
+
+     </form>
+
+
+</div>
+
 
 
       <script src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
@@ -439,6 +510,31 @@
                   }
               } );
           } );
+          $(document).ready(function() {
+              $('#myTable2').DataTable( {
+                  "language": {
+                      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                  }
+              } );
+          } );
+
+          $(document).on("click", function(e){
+              if($(e.target).is("#paciente1")){
+                $("#2").show();
+                $("#1").hide();
+
+              }
+          });
+
+          $(document).on("click", function(e){
+              if($(e.target).is("#paciente2")){
+                $("#2").hide();
+                $("#1").show();
+
+              }
+          });
+
+
       </script>
 
 

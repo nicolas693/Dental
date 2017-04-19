@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::resource('Paciente', 'Paciente\PacienteController');
+Route::get('Paciente/alta/{id}',['as' => 'Paciente.alta', 'uses' => 'Paciente\PacienteController@alta']);
