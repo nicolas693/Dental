@@ -57,9 +57,11 @@
                  <td>{{$pa->Cobertura_Medica}}</td>
                  <td>
                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#{{$pa->rut}}">Editar</button>
+                   <a class="btn btn-success btn-xs"  href="{{route('Paciente.ante',$pa->rut)}}">Antecedentes</a>
                    <!--<a class="btn btn-success btn-xs"  href="{{route('Paciente.edit',$pa->rut)}}">Editar</a>-->
                    <a class="btn btn-danger btn-xs"  href="{{url('/Paciente/alta/'.$pa->rut)}}">Dar Alta</a>
 
+                   <!-- INICIO MODAL UPDATE -->
                    <div id="{{$pa->rut}}" class="modal fade" role="dialog">
                      <div class="modal-dialog">
                        <div class="container" style="max-width:180%; margin-left:-40%; margin-top:10%;">
@@ -232,6 +234,12 @@
                        </div>
                      </div>
                    </div>
+
+                    <!-- FIN MODAL UPDATE -->
+
+
+
+
                  </td>
                 </tr>
                 @endif
@@ -279,7 +287,7 @@
         </div>
 
 
-
+ <!-- INICIO MODAL STORE -->
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -468,6 +476,8 @@
           </div>
         </div>
       </div>
+
+      <!-- FIN MODAL STORE -->
 
       <div class="modal fade" id="modal-delete" tabIndex="-1">
 

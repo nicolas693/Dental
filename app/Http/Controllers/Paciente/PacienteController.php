@@ -107,7 +107,8 @@ class PacienteController extends Controller
 
     public function alta($id)
     {
-      
+
+
         $pa=Paciente::find($id);
         if($pa->alta==false){
             Paciente::where('rut', $id)->update(array('alta' => 1));
@@ -120,5 +121,20 @@ class PacienteController extends Controller
         $pa=$pa->clinica_id;
 
         return redirect()->route('Paciente.index');
+    }
+
+    public function ante($id)
+    {
+        $paciente=Paciente::find($id);
+        return view('Paciente.ante')->with('paciente',$paciente);
+    }
+
+    public function crearOdo($id)
+    {
+
+        dd("aaaaaaaaa");
+
+
+        return view('Paciente.ante')->with('id',$id);
     }
 }
