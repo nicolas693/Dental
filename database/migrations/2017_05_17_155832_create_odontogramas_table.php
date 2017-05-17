@@ -17,7 +17,7 @@ class CreateOdontogramasTable extends Migration
             $table->increments('Odontograma_id');
             $table->timestamps();
 
-
+           $table->String('Paciente_id');
            $table->Integer('pieza18')->nullable()->unsigned();
            $table->Integer('pieza17')->nullable()->unsigned();
            $table->Integer('pieza16')->nullable()->unsigned();
@@ -54,7 +54,7 @@ class CreateOdontogramasTable extends Migration
            $table->Integer('pieza37')->nullable()->unsigned();
            $table->Integer('pieza38')->nullable()->unsigned();
 
-
+          $table->foreign('Paciente_id')->references('rut')->on('Paciente');
           $table->foreign('pieza18')->references('Problema_id')->on('Problema');
           $table->foreign('pieza17')->references('Problema_id')->on('Problema');
           $table->foreign('pieza16')->references('Problema_id')->on('Problema');

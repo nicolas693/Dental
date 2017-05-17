@@ -52,8 +52,10 @@ class FichaController extends Controller
     public function show($id)
     {
       $paciente=Paciente::find($id);
+      $edad=25;
+      $fechaA=25;
 
-      return view('Ficha.show')->with('id',$id)->with('paciente',$paciente);
+      return view('Ficha.show')->with('id',$id)->with('paciente',$paciente)->with('edad',$edad)->with('fechaA',$fechaA);
     }
 
     /**

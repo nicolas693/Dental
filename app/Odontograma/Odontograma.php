@@ -11,6 +11,7 @@ class Odontograma extends Model
 
 
   protected $fillable   = [
+    'Paciente_id',
     'pieza18',
       'pieza17',
       'pieza16',
@@ -52,6 +53,10 @@ class Odontograma extends Model
 
 
   public function Problema (){
-    return $this->Hasmany(Problema::class);
+    return $this->hasMany(Problema::class);
+  }
+
+  public function Paciente (){
+      return $this->belongsTo(Paciente::class);
   }
 }

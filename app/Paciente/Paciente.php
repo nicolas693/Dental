@@ -21,4 +21,7 @@ class Paciente extends Model
     public function Ficha (){
         return $this->hasOne(Ficha::class);
     }
+    public function Odontograma (){
+        return $this->hasOne(Odontograma::class);
+    }
 }

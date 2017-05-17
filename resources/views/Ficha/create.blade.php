@@ -27,7 +27,7 @@
                <div class="form-group col-sm-6">
                    {!!form::label('Nombre :')!!}
                     {!!$paciente->Nombre !!} {!!$paciente->Paterno !!} {!!$paciente->Materno !!}
-                    {{Form::hidden('paciente_id',$paciente->rut)}}
+                    {{Form::hidden('Paciente_id',$paciente->rut)}}
                </div>
 
              <div class="form-group col-sm-6">
@@ -405,8 +405,7 @@
 
           <div class="col-sm-12" style="margin-top:10px;" >
             <div class="col-sm-2">
-              {!!Form::submit('Grabar',['name'=>'grabar','id'=>'grabar'
-                ,'content'=>'<span>Grabar</span>','class'=>'btn btn-success ']) !!}
+              {!!Form::submit('Grabar',['name'=>'grabar','id'=>'grabar','content'=>'<span>Grabar</span>','class'=>'btn btn-success ']) !!}
                 {!!Form::close()!!}
             </div>
 
