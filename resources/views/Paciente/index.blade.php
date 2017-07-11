@@ -24,8 +24,8 @@
   </head>
 
   <ol class="breadcrumb margenOl ">
-       <li class="pull-left"><button id="paciente1" class="btn btn-primary btn-xs"> <b>Pacientes Con Alta</b></button></li>
-       <li class="pull-left"><button id="paciente2" class="btn btn-primary btn-xs"> <b>Pacientes En Tratamiento</b></button></li>
+       <!--<li class="pull-left"><button id="paciente1" class="btn btn-primary btn-xs"> <b>Pacientes Con Alta</b></button></li>
+       <li class="pull-left"><button id="paciente2" class="btn btn-primary btn-xs"> <b>Pacientes En Tratamiento</b></button></li>-->
        <li class="pull-right"><a href="/" class="btn btn-primary btn-xs"> <b>Volver</b></a></li>
        <li class="active">  </li>
      </ol>
@@ -248,7 +248,7 @@
         </div>
       </div>
 
-      <div class="panel panel-warning margen" id="2" style="display:none;">
+      <div class="panel panel-warning margen" id="2">
 
         <div class="panel-heading" >
           <b>Pacientes Con Alta</b>
@@ -504,6 +504,8 @@
 
       <script src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
       <script>
+
+
           $('.datepicker').datepicker({
               format: "dd/mm/yyyy",
               language: "es",
@@ -519,30 +521,16 @@
                       "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                   }
               } );
-          } );
-          $(document).ready(function() {
+
               $('#myTable2').DataTable( {
                   "language": {
                       "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                   }
               } );
+
           } );
 
-          $(document).on("click", function(e){
-              if($(e.target).is("#paciente1")){
-                $("#2").show();
-                $("#1").hide();
 
-              }
-          });
-
-          $(document).on("click", function(e){
-              if($(e.target).is("#paciente2")){
-                $("#2").hide();
-                $("#1").show();
-
-              }
-          });
 
 
       </script>

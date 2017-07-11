@@ -55,6 +55,7 @@ class CreateOdontogramasTable extends Migration
            $table->Integer('pieza38')->nullable()->unsigned();
 
           $table->foreign('Paciente_id')->references('rut')->on('Paciente');
+
           $table->foreign('pieza18')->references('Problema_id')->on('Problema');
           $table->foreign('pieza17')->references('Problema_id')->on('Problema');
           $table->foreign('pieza16')->references('Problema_id')->on('Problema');

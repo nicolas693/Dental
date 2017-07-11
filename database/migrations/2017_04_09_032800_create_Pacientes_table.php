@@ -33,6 +33,8 @@ class CreatePacientesTable extends Migration
           $table->boolean('alta');
           $table->timestamps();
 
+
+
       });
     }
 

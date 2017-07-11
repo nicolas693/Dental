@@ -25,4 +25,10 @@ Route::get('Paciente/antecedentes/{id}/crearOdo',['as' => 'Paciente.crearOdo', '
 
 Route::resource('Ficha','Ficha\FichaController',['only' => ['store','show','index','edit','update']]);
 
-Route::get('Ficha/create/{id}', ['as' => 'Ficha.create','uses' => 'Ficha\FichaController@create']);
+
+route::get('Ficha/{id}/create',['as'=>'Ficha.ficha', 'uses' => 'Ficha\FichaController@ficha' ]);
+
+route::get('Ficha/{id}/Odontograma/{id2}',['as'=> 'Odontograma.show' , 'uses' => 'OdontogramaController@show']);
+route::post('Odontograma',['as'=> 'Odontograma.store' , 'uses' => 'OdontogramaController@store']);
+route::put('Odontograma/editar/{id}',['as'=> 'Odontograma.editarProblema' , 'uses' => 'OdontogramaController@editarProblema']);
+route::get('Ficha/{id}/Odontograma',['as'=> 'Odontograma.index' , 'uses' => 'OdontogramaController@index']);

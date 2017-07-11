@@ -126,6 +126,7 @@ class PacienteController extends Controller
     public function ante($id)
     {
         $paciente=Paciente::find($id);
+        
         return view('Paciente.ante')->with('paciente',$paciente);
     }
 
