@@ -37,19 +37,15 @@ class OdontogramaController extends Controller
     $aa=Odontograma::max('Odontograma_id', 'desc')+1;
     $rut=$request->Odontograma_id;
 
-
     $array=array("Problema_id"=>"1");
     for($i=0;$i<32;$i++){
       Problema::create($array);
     }
-
     $a=Problema::orderBy('Problema_id', 'desc')->first();
     $pa=Paciente::where('rut',$rut)->firstOrFail();
     $request->Odontograma_id=$aa;
 
-
     $indice=$a->Problema_id-32;
-
 
     $request['pieza18']=1+$indice;
     $request['pieza17']=2+$indice;
@@ -102,6 +98,15 @@ class OdontogramaController extends Controller
   {
       $paciente=Paciente::where('rut','=',$id)->first();
       $probN = Schema::getColumnListing('Problema');
+      unset($probN[0]);
+      unset($probN[1]);
+      unset($probN[2]);
+      $i=0;
+      foreach ($probN as $key => $prob) {
+        unset($probN[$key]);
+        $probN[intval($key)-2]=$prob;
+
+      }
       $prob=Problema::where('Problema_id','=',$id2)->first();
       $odonto=Odontograma::where('Paciente_id','=',$id)->first();
       $odonto=$odonto['attributes'];
@@ -117,27 +122,22 @@ class OdontogramaController extends Controller
 
   public function editarProblema(Request $request, $id)
   {
-
     $pro=Problema::find($id);
     $input=$request->all();
     $i=32;
     $ii=1;
-
     if(array_key_exists('Problema_id',$input)){
       foreach($input as $key => $mainrow){
           if($input[$key]=="on"){
             $input[$key]=1;
           }
       }
-
       while($i<$id){
         $ii++;
         $i=$i+32;
       }
-
     }
     else{
-
             foreach($input as $key => $mainrow){
                 if($input[$key]=="0"){
                   $input[$key]="1";
@@ -151,8 +151,6 @@ class OdontogramaController extends Controller
             }
 
     }
-
-
     $odo=Odontograma::where('Odontograma_id','=',$ii)->first();
     $pro->fill($input)->save();
     return redirect('/Ficha/'.$odo->Paciente_id.'/Odontograma');
