@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Paciente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Paciente\Paciente;
+use App\Odontograma\Odontograma;
 use Carbon\Carbon;
 
 class PacienteController extends Controller
@@ -126,8 +127,8 @@ class PacienteController extends Controller
     public function ante($id)
     {
         $paciente=Paciente::find($id);
-        
-        return view('Paciente.ante')->with('paciente',$paciente);
+        $odo=Odontograma::where('Paciente_id','=',$paciente->rut)->first();
+        return view('Paciente.ante')->with('paciente',$paciente)->with('odo',$odo);
     }
 
     public function crearOdo($id)

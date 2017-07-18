@@ -29,6 +29,6 @@ Route::resource('Ficha','Ficha\FichaController',['only' => ['store','show','inde
 route::get('Ficha/{id}/create',['as'=>'Ficha.ficha', 'uses' => 'Ficha\FichaController@ficha' ]);
 
 route::get('Ficha/{id}/Odontograma/{id2}',['as'=> 'Odontograma.show' , 'uses' => 'OdontogramaController@show']);
-route::post('Odontograma',['as'=> 'Odontograma.store' , 'uses' => 'OdontogramaController@store']);
+route::get('Odontograma/{id}',['as'=> 'Odontograma.crear' , 'uses' => 'OdontogramaController@crear']);
 route::put('Odontograma/editar/{id}',['as'=> 'Odontograma.editarProblema' , 'uses' => 'OdontogramaController@editarProblema']);
 route::get('Ficha/{id}/Odontograma',['as'=> 'Odontograma.index' , 'uses' => 'OdontogramaController@index']);

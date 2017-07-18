@@ -24,13 +24,16 @@
       <div class="panel-heading" > {{$paciente->Nombre}} {{$paciente->Paterno}} {{$paciente->Materno}} {{$paciente->rut}}  </div>
         <div class="panel-body">
           <a href="{{route('Ficha.show',$paciente->rut)}}" class="btn btn-primary btn-xs"> <b>Ficha</b></a></li>
-          <a href="{{route('Odontograma.index',$paciente->rut)}}" class="btn btn-primary btn-xs"> <b>Odontograma</b></a></li>
-          {!!Form::open(['route'=>'Odontograma.store','method'=>'POST'])!!}
-              {!!form::text('Odontograma_id',$paciente->rut,['id'=>'Odontograma_id','class'=>'form-control hidden'])!!}
-              <div class="btn-group">
-                <button type="submit" class="btn btn-success" style="margin-left:10px;">Crear Odontograma</button>
-              </div>
-            {!!Form::close()!!}
+
+          @if ($odo==null)
+
+          <a href="{{route('Odontograma.crear',$paciente->rut)}}" class="btn btn-primary btn-xs"> <b>Crear Odontograma</b></a></li>
+
+
+          @else
+          <a href="{{route('Odontograma.index',$paciente->rut)}}" class="btn btn-primary btn-xs"> <b>Ver Odontograma</b></a></li>
+
+          @endif
       </div>
 
   </body>

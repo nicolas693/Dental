@@ -231,10 +231,8 @@
 
       <!--<input  type="image" src='images/31.png' name="31"  data-id="31" data-toggle="modal" data-target="#myModal" class="view-admin" />-->
 
-
     </div>
 
-    
   </div>
 
 

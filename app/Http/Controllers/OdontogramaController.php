@@ -31,11 +31,11 @@ class OdontogramaController extends Controller
       return view('Odontograma.index')->with('id',$id)->with('paciente',$paciente)->with('odonto',$odonto)->with('pr',$pr);
   }
 
-  public function store(Request $request)
+  public function crear($id)
   {
 
     $aa=Odontograma::max('Odontograma_id', 'desc')+1;
-    $rut=$request->Odontograma_id;
+    $rut=$id;
 
     $array=array("Problema_id"=>"1");
     for($i=0;$i<32;$i++){
@@ -43,47 +43,47 @@ class OdontogramaController extends Controller
     }
     $a=Problema::orderBy('Problema_id', 'desc')->first();
     $pa=Paciente::where('rut',$rut)->firstOrFail();
-    $request->Odontograma_id=$aa;
+    $id=$aa;
 
     $indice=$a->Problema_id-32;
+    $odontograma=new Odontograma();
+    $odontograma['pieza18']=1+$indice;
+    $odontograma['pieza17']=2+$indice;
+    $odontograma['pieza16']=3+$indice;
+    $odontograma['pieza15']=4+$indice;
+    $odontograma['pieza14']=5+$indice;
+    $odontograma['pieza13']=6+$indice;
+    $odontograma['pieza12']=7+$indice;
+    $odontograma['pieza11']=8+$indice;
 
-    $request['pieza18']=1+$indice;
-    $request['pieza17']=2+$indice;
-    $request['pieza16']=3+$indice;
-    $request['pieza15']=4+$indice;
-    $request['pieza14']=5+$indice;
-    $request['pieza13']=6+$indice;
-    $request['pieza12']=7+$indice;
-    $request['pieza11']=8+$indice;
+    $odontograma['pieza21']=9+$indice;
+    $odontograma['pieza22']=10+$indice;
+    $odontograma['pieza23']=11+$indice;
+    $odontograma['pieza24']=12+$indice;
+    $odontograma['pieza25']=13+$indice;
+    $odontograma['pieza26']=14+$indice;
+    $odontograma['pieza27']=15+$indice;
+    $odontograma['pieza28']=16+$indice;
 
-    $request['pieza21']=9+$indice;
-    $request['pieza22']=10+$indice;
-    $request['pieza23']=11+$indice;
-    $request['pieza24']=12+$indice;
-    $request['pieza25']=13+$indice;
-    $request['pieza26']=14+$indice;
-    $request['pieza27']=15+$indice;
-    $request['pieza28']=16+$indice;
+    $odontograma['pieza48']=17+$indice;
+    $odontograma['pieza47']=18+$indice;
+    $odontograma['pieza46']=19+$indice;
+    $odontograma['pieza45']=20+$indice;
+    $odontograma['pieza44']=21+$indice;
+    $odontograma['pieza43']=22+$indice;
+    $odontograma['pieza42']=23+$indice;
+    $odontograma['pieza41']=24+$indice;
 
-    $request['pieza48']=17+$indice;
-    $request['pieza47']=18+$indice;
-    $request['pieza46']=19+$indice;
-    $request['pieza45']=20+$indice;
-    $request['pieza44']=21+$indice;
-    $request['pieza43']=22+$indice;
-    $request['pieza42']=23+$indice;
-    $request['pieza41']=24+$indice;
-
-    $request['pieza31']=25+$indice;
-    $request['pieza32']=26+$indice;
-    $request['pieza33']=27+$indice;
-    $request['pieza34']=28+$indice;
-    $request['pieza35']=29+$indice;
-    $request['pieza36']=30+$indice;
-    $request['pieza37']=31+$indice;
-    $request['pieza38']=32+$indice;
-    $request['Paciente_id']=$rut;
-    Odontograma::create($request->all());
+    $odontograma['pieza31']=25+$indice;
+    $odontograma['pieza32']=26+$indice;
+    $odontograma['pieza33']=27+$indice;
+    $odontograma['pieza34']=28+$indice;
+    $odontograma['pieza35']=29+$indice;
+    $odontograma['pieza36']=30+$indice;
+    $odontograma['pieza37']=31+$indice;
+    $odontograma['pieza38']=32+$indice;
+    $odontograma['Paciente_id']=$rut;
+    $odontograma->save();
     return redirect('/Paciente/antecedentes/'.$rut);
 
   }
